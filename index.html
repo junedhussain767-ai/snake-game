@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Neon Glass Snake — Premium</title>
+  <link rel="stylesheet" href="oops.css">
+</head>
+<body>
+ 
+<div id="playerModal" class="player-modal">
+  <div class="modal-card">
+    <h2>Enter Player Details</h2>
+
+    <label for="playerName" class="sr">Player Name</label>
+    <input id="playerName" type="text" placeholder="Enter your name" />
+
+    <div class="genders">
+      <label><input id="g-male" type="radio" name="gender" value="Male"> Male</label>
+      <label><input id="g-female" type="radio" name="gender" value="Female"> Female</label>
+      <label><input id="g-other" type="radio" name="gender" value="Other"> Other</label>
+    </div>
+
+    <div class="error" id="formError">Please enter name and choose gender</div>
+
+    <button id="savePlayer" class="big-btn">Continue</button>
+  </div>
+</div>
+<div class="app">
+  <div class="card">
+    <!-- LEFT PANEL (UI) -->
+    <div class="panel" aria-hidden="false">
+      <div class="title">
+        <h1>Snake Game</h1>
+        <p class="muted">PROJECT:- SNAKE GAME <br>
+            DEPARTMENT :- ARTIFICIAL INTELLIGENCE & DATA SCIENCE
+        </p>
+      </div>
+
+      <div class="controls">
+        <div class="row">
+          <div class="stat">
+            <small class="muted">Score</small>
+            <strong id="ui-score">0</strong>
+          </div>
+          <div class="stat">
+            <small class="muted">High Score</small>
+            <strong id="ui-high">0</strong>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button id="startBtn" class="big-btn">Start Game</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="stat">
+            <small class="muted">Speed</small>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input id="speedRange" type="range" min="4" max="16" step="1" value="8" />
+              <small id="speedVal" class="muted">8</small>
+            </div>
+          </div>
+
+          <div style="text-align:right">
+            <button id="wrapBtn" class="small">Wall Collisions: On</button>
+          </div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <small class="muted">Controls: Arrow keys / WASD — <strong>P</strong> to pause</small>
+        </div>
+
+        <div class="footer-note">
+           <div id="jay"> SUBMITTED BY:- <br> <br>
+            KHUSHAL VAISHNAV (24EARAD080)  <br>
+            KUSHAGRA GAUTAM (24EARAD087) <br>
+            JUNED HUSSAIN (24EARAD072) <br> 
+            JAY JOSHI (24EARAD069) <br>
+            Jatin (24EARAD066) <br>
+           </div>
+           <div id="sir">
+             SUBMITTED TO:- <br><br>
+             MR.MANISH DWIVEDI
+           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT STAGE (Canvas + HUD + Modal) -->
+    <div class="stage">
+      <div class="canvas-wrap">
+        <div class="hud">
+          <div class="pill"><span class="score-dot"></span> <span class="val" id="hud-score">0</span></div>
+          <div class="pill"><small class="muted">Player:</small> <span class="val" id="hud-name">Guest</span></div>
+          <div class="pill"><small class="muted">Time:</small> <span class="val" id="hud-time">00:00</span></div>
+        </div>
+
+        <canvas id="game" width="640" height="640" tabindex="0"></canvas>
+
+        <!-- touch controls -->
+        <div class="touch-controls" aria-hidden="false">
+          <div class="dpad">
+            <div></div>
+            <button data-dir="up">▲</button>
+            <div></div>
+            <button data-dir="left">◀</button>
+            <div></div>
+            <button data-dir="right">▶</button>
+            <div></div>
+            <button data-dir="down">▼</button>
+          </div>
+        </div>
+
+        <!-- START / GAME OVER MODAL -->
+        <div class="modal" id="modal">
+          <div class="panel-card" id="modalCard">
+            <h2 id="modalTitle">Snake</h2>
+            <p id="modalText" class="muted">Get ready. Eat the red food to grow. Avoid crashing!</p>
+            <div id="modalScoreWrap" style="display:none">
+              <div class="scorebig" id="modalScore">0</div>
+              <div class="sub">Final Score</div>
+              <div style="margin-top:8px;">
+                <div class="sub">Total Time</div>
+                <div id="modalTime" class="scorebig" style="font-size:20px;">00:00</div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;">
+              <button id="modalPrimary" class="big-btn">Start</button>
+              <button id="modalSecondary" class="small">Close</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="oops.js"></script>
+</body>
+</html>
