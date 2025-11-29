@@ -8,6 +8,8 @@
 </head>
 <body>
  
+<!-- Mobile: show controls toggle (appears only on small screens) -->
+<button id="showControlsBtn" class="small" style="display:none;position:fixed;left:12px;top:12px;z-index:7000;">Controls</button>
 <div id="playerModal" class="player-modal">
   <div class="modal-card">
     <h2>Enter Player Details</h2>
@@ -63,6 +65,8 @@
 
           <div style="text-align:right">
             <button id="wrapBtn" class="small">Wall Collisions: On</button>
+            <!-- Joystick toggle: shows/hides touch controls (D-Pad + joystick) -->
+            <button id="joystickToggle" class="small">Joystick: On</button>
           </div>
         </div>
 
@@ -140,5 +144,4 @@
 
 <script src="script.js"></script>
 </body>
-
 </html>
