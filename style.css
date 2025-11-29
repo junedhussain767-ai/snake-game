@@ -1,4 +1,4 @@
- html, body {
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -15,7 +15,7 @@ body::before {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5); /* dark overlay */
-  z-index: -1; /* text upar rahega */
+  z-index: -1; /* text upar rahega */
 }
 :root{
   --bg1: #041018;
@@ -214,3 +214,28 @@ canvas {
 
 /* small helpers */
 .sr { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+
+/* Virtual joystick styles */
+/* show touch controls on coarse pointers (mobile / touch devices) */
+@media (pointer: coarse), (max-width: 900px) {
+  .touch-controls { display:flex; }
+}
+
+/* Mobile layout tweaks */
+@media (max-width: 900px) {
+  .card { grid-template-columns: 1fr; }
+  /* hide left panel to maximize play area; toggled via JS */
+  .panel { display: none; }
+  .panel.mobile-open { display: block; position: fixed; left: 12px; top: 64px; width: calc(100% - 24px); max-width: 420px; z-index: 8000; }
+
+  .canvas-wrap { padding: 12px; }
+  canvas { max-width: calc(100vw - 32px); max-height: calc(100vw - 32px); }
+
+  /* bigger touch buttons */
+  .touch-controls { right:12px; bottom:12px; left:auto; }
+  .dpad { grid-template-columns: repeat(3,72px); gap:10px; }
+  .dpad button { width:72px; height:72px; border-radius:12px; font-size:22px; }
+
+  /* show the mobile controls button */
+  #showControlsBtn { display: inline-block; }
+}
