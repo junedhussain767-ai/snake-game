@@ -169,11 +169,11 @@
 
     if (modal) {
       modal.style.display = 'flex';
-      if (modalTitle) modalTitle.textContent = `${playerName} — Game Over!`;
-      if (modalText) modalText.textContent = `You survived ${mm}:${ss}`;
+      if (modalTitle) modalTitle.textContent = ${playerName} — Game Over!;
+      if (modalText) modalText.textContent = You survived ${mm}:${ss};
       if (modalScoreWrap) modalScoreWrap.style.display = 'block';
       if (modalScore) modalScore.textContent = score;
-      if (modalTime) modalTime.textContent = `${mm}:${ss}`;
+      if (modalTime) modalTime.textContent = ${mm}:${ss};
       if (modalPrimary) modalPrimary.textContent = 'Play Again';
     }
 
@@ -211,16 +211,16 @@
     const y = (food.y * cellPixels) + cellPixels / 2;
 
     const g = ctx.createRadialGradient(x, y, 0, x, y, size * 2);
-    g.addColorStop(0, `rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 0.95)`);
-    g.addColorStop(0.35, `rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 0.6)`);
-    g.addColorStop(1, `rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 0)`);
+    g.addColorStop(0, rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 0.95));
+    g.addColorStop(0.35, rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 0.6));
+    g.addColorStop(1, rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 0));
     ctx.beginPath();
     ctx.fillStyle = g;
     ctx.arc(x, y, size * 1.8, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.beginPath();
-    ctx.fillStyle = `rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 1)`;
+    ctx.fillStyle = rgba(${THEME.danger.r}, ${THEME.danger.g}, ${THEME.danger.b}, 1);
     ctx.arc(x, y, Math.max(4, size * 0.9), 0, Math.PI * 2);
     ctx.fill();
 
@@ -249,10 +249,10 @@
       const b2 = Math.floor(THEME.accent2.b * (1 - t) + THEME.cyan.b * t);
 
       const grad = ctx.createLinearGradient(x, y, x + w, y + h);
-      grad.addColorStop(0, `rgba(${r1},${g1},${b1},1)`);
-      grad.addColorStop(1, `rgba(${r2},${g2},${b2},1)`);
+      grad.addColorStop(0, rgba(${r1},${g1},${b1},1));
+      grad.addColorStop(1, rgba(${r2},${g2},${b2},1));
 
-      ctx.shadowColor = `rgba(${r1},${g1},${b1},0.28)`;
+      ctx.shadowColor = rgba(${r1},${g1},${b1},0.28);
       ctx.shadowBlur = Math.max(6, Math.floor(cellPixels * 0.12));
       ctx.fillStyle = grad;
       roundRect(ctx, x + inset, y + inset, w, h, Math.max(3, Math.floor(w * 0.18)), true, false);
@@ -272,8 +272,8 @@
       const cy = hy + cellPixels / 2;
 
       const headGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, size * 2.4);
-      headGrad.addColorStop(0, `rgba(${THEME.accent2.r},${THEME.accent2.g},${THEME.accent2.b},0.95)`);
-      headGrad.addColorStop(0.4, `rgba(${THEME.accent.r},${THEME.accent.g},${THEME.accent.b},0.45)`);
+      headGrad.addColorStop(0, rgba(${THEME.accent2.r},${THEME.accent2.g},${THEME.accent2.b},0.95));
+      headGrad.addColorStop(0.4, rgba(${THEME.accent.r},${THEME.accent.g},${THEME.accent.b},0.45));
       headGrad.addColorStop(1, 'rgba(0,0,0,0)');
 
       ctx.beginPath();
@@ -281,9 +281,9 @@
       ctx.arc(cx, cy, size * 1.8, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.shadowColor = `rgba(${THEME.accent2.r},${THEME.accent2.g},${THEME.accent2.b},0.9)`;
+      ctx.shadowColor = rgba(${THEME.accent2.r},${THEME.accent2.g},${THEME.accent2.b},0.9);
       ctx.shadowBlur = Math.max(10, Math.floor(cellPixels * 0.25));
-      ctx.fillStyle = `rgba(${THEME.accent2.r},${THEME.accent2.g},${THEME.accent2.b},1)`;
+      ctx.fillStyle = rgba(${THEME.accent2.r},${THEME.accent2.g},${THEME.accent2.b},1);
       roundRect(ctx, hx + pad, hy + pad, size, size, Math.max(3, Math.floor(size * 0.15)), true, false);
 
       ctx.shadowBlur = 0;
@@ -335,7 +335,7 @@
       const elapsedSec = Math.floor(elapsedMs / 1000);
       const mm = String(Math.floor(elapsedSec / 60)).padStart(2, '0');
       const ss = String(elapsedSec % 60).padStart(2, '0');
-      hudTime.textContent = `${mm}:${ss}`;
+      hudTime.textContent = ${mm}:${ss};
     }
 
     if (!running || paused) {
@@ -393,6 +393,34 @@
     });
   }
 
+  // Joystick toggle button (show/hide touch-controls and persist preference)
+  const joystickToggle = document.getElementById('joystickToggle');
+  const touchControls = document.querySelector('.touch-controls');
+  function updateJoystickUI(enabled) {
+    try {
+      if (touchControls) touchControls.style.display = enabled ? 'flex' : 'none';
+      if (joystickToggle) joystickToggle.textContent = Joystick: ${enabled ? 'On' : 'Off'};
+      localStorage.setItem('snake_joystick', enabled ? '1' : '0');
+    } catch (e) { /* ignore storage errors */ }
+  }
+
+  // initialize toggle state from storage (default: enabled)
+  try {
+    const saved = localStorage.getItem('snake_joystick');
+    const enabled = (saved === null) ? true : (saved === '1');
+    updateJoystickUI(enabled);
+  } catch (e) { if (touchControls) touchControls.style.display = 'flex'; }
+
+  if (joystickToggle) {
+    joystickToggle.addEventListener('click', () => {
+      try {
+        const cur = localStorage.getItem('snake_joystick');
+        const enabled = !(cur === '1');
+        updateJoystickUI(enabled);
+      } catch (e) { /* ignore */ }
+    });
+  }
+
   // Save Player
   if (savePlayer) {
     savePlayer.addEventListener('click', () => {
@@ -406,7 +434,7 @@
       playerGender = genderRadio.value;
       try { localStorage.setItem('snake_player', JSON.stringify({ name: playerName, gender: playerGender })); } catch (e) {}
       if (playerModal) playerModal.style.display = 'none';
-      if (modal) { modal.style.display = 'flex'; if (modalTitle) modalTitle.textContent = `Welcome, ${playerName}`; if (modalText) modalText.textContent = 'Ready to start?'; }
+      if (modal) { modal.style.display = 'flex'; if (modalTitle) modalTitle.textContent = Welcome, ${playerName}; if (modalText) modalText.textContent = 'Ready to start?'; }
     });
   }
 
@@ -433,6 +461,23 @@
     cancelAnimationFrame(animationFrameId);
     animationFrameId = requestAnimationFrame(loop);
   }
+
+  // Mobile helpers: allow tapping canvas to start the game and toggle panel
+  try {
+    // start on touch on canvas when not running
+    canvas.addEventListener('touchstart', (e) => {
+      if (!running) startGame();
+    }, { passive: true });
+
+    // show/hide left panel on mobile
+    const showControlsBtn = document.getElementById('showControlsBtn');
+    const leftPanel = document.querySelector('.panel');
+    if (showControlsBtn && leftPanel) {
+      showControlsBtn.addEventListener('click', () => {
+        leftPanel.classList.toggle('mobile-open');
+      });
+    }
+  } catch (e) { /* ignore in non-browser env */ }
 
   // Prefill saved
   (function maybePrefill() {
